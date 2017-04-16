@@ -19,14 +19,14 @@ const HTTPStatus = require("http-status");
 const mongoose = require("mongoose");
 const supertest = require("supertest");
 const app = require("../app/app");
-let connection;
-before(() => __awaiter(this, void 0, void 0, function* () {
-    // 全て削除してからテスト開始
-    connection = mongoose.createConnection(process.env.MONGOLAB_URI);
-    const gmoNotificationAdapter = sskts.adapter.gmoNotification(connection);
-    yield gmoNotificationAdapter.gmoNotificationModel.remove({}).exec();
-}));
 describe('GMO結果通知', () => {
+    let connection;
+    before(() => __awaiter(this, void 0, void 0, function* () {
+        // 全て削除してからテスト開始
+        connection = mongoose.createConnection(process.env.MONGOLAB_URI);
+        const gmoNotificationAdapter = sskts.adapter.gmoNotification(connection);
+        yield gmoNotificationAdapter.gmoNotificationModel.remove({}).exec();
+    }));
     it('不正なリクエスト', () => __awaiter(this, void 0, void 0, function* () {
         yield supertest(app)
             .post('/gmo/notify')

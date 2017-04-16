@@ -1,7 +1,4 @@
-# LINE Messaging APIを使ったシネマサンシャインチケット業務アプリ
-
-LINE Messaging APIは、トークやアカウントに関するイベントに対するウェブフックの仕組みを持っています。
-それを受けるウェブアプリです。
+# sskts webhook ウェブアプリケーション
 
 
 # Features
@@ -39,7 +36,7 @@ npmでローカルサーバーを起動。
 (http://localhost:8080)にアクセスすると、ローカルでウェブアプリを確認できます。
 
 以下指定するとデバッグモード。
-`set DEBUG=sskts-linereport:*`
+`set DEBUG=sskts-webhook:*`
 
 
 ### tslint
@@ -59,11 +56,11 @@ npmでローカルサーバーを起動。
 ## Required environment variables
 ```shell
     set NODE_ENV=**********
-    set LINE_BOT_CHANNEL_SECRET=**********
-    set LINE_BOT_CHANNEL_ACCESS_TOKEN=**********
-    set LINE_PAY_CHANNEL_ID=**********
-    set LINE_PAY_CHANNEL_SECRET=**********
-    set LINE_PAY_WEBHOOK_ENDPOINT=**********
+    set MONGOLAB_URI=**********
+    set SENDGRID_API_KEY=**********
+    set GMO_ENDPOINT=**********
+    set COA_ENDPOINT=**********
+    set COA_REFRESH_TOKEN=**********
 ```
 
 only on Aure WebApps
@@ -71,6 +68,13 @@ only on Aure WebApps
 ```shell
     set WEBSITE_NODE_DEFAULT_VERSION=**********
     set WEBSITE_TIME_ZONE=Tokyo Standard Time
+```
+
+ベーシック認証をかけたい場合
+
+```shell
+set SSKTS_WEBHOOK_BASIC_AUTH_NAME=**********認証ユーザー名**********
+set SSKTS_WEBHOOK_BASIC_AUTH_PASS=**********認証パスワード**********
 ```
 
 

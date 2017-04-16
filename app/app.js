@@ -1,11 +1,17 @@
 "use strict";
-// tslint:disable:missing-jsdoc no-backbone-get-set-outside-model
+/**
+ * expressアプリケーション
+ *
+ * @module
+ */
 const bodyParser = require("body-parser");
 const express = require("express");
 const mongoose = require("mongoose");
+const basicAuth_1 = require("./middlewares/basicAuth");
 const errorHandler_1 = require("./middlewares/errorHandler");
 const notFoundHandler_1 = require("./middlewares/notFoundHandler");
 const app = express();
+app.use(basicAuth_1.default); // ベーシック認証
 // view engine setup
 app.set('views', `${__dirname}/views`);
 app.set('view engine', 'ejs');

@@ -11,15 +11,15 @@ import * as supertest from 'supertest';
 
 import * as app from '../app/app';
 
-let connection: mongoose.Connection;
-before(async () => {
-    // 全て削除してからテスト開始
-    connection = mongoose.createConnection(process.env.MONGOLAB_URI);
-    const gmoNotificationAdapter = sskts.adapter.gmoNotification(connection);
-    await gmoNotificationAdapter.gmoNotificationModel.remove({}).exec();
-});
-
 describe('GMO結果通知', () => {
+    let connection: mongoose.Connection;
+    before(async () => {
+        // 全て削除してからテスト開始
+        connection = mongoose.createConnection(process.env.MONGOLAB_URI);
+        const gmoNotificationAdapter = sskts.adapter.gmoNotification(connection);
+        await gmoNotificationAdapter.gmoNotificationModel.remove({}).exec();
+    });
+
     it('不正なリクエスト', async () => {
         await supertest(app)
             .post('/gmo/notify')
