@@ -20,37 +20,40 @@ const HTTPStatus = require("http-status");
 const mongoose = require("mongoose");
 const supertest = require("supertest");
 const app = require("../app/app");
-describe('GMO結果通知', () => {
+describe('SendGridイベント通知', () => {
     let connection;
     before(() => __awaiter(this, void 0, void 0, function* () {
         // 全て削除してからテスト開始
         connection = mongoose.createConnection(process.env.MONGOLAB_URI);
-        const gmoNotificationAdapter = sskts.adapter.gmoNotification(connection);
-        yield gmoNotificationAdapter.gmoNotificationModel.remove({}).exec();
+        const sendGridEventAdapter = sskts.adapter.sendGridEvent(connection);
+        yield sendGridEventAdapter.sendGridEventModel.remove({}).exec();
     }));
     it('不正なリクエスト', () => __awaiter(this, void 0, void 0, function* () {
         yield supertest(app)
-            .post('/gmo/notify')
+            .post('/sendgrid/event/notify')
             .send({
             test: 'test'
         })
-            .expect(HTTPStatus.OK)
+            .expect(HTTPStatus.BAD_REQUEST)
             .then((response) => {
-            assert.equal(response.text, '0');
+            assert.equal(response.text, '');
         });
     }));
     it('有効なリクエスト', () => __awaiter(this, void 0, void 0, function* () {
-        const data = fs.readFileSync(`${__dirname}/gmoNotification-test.json`, 'utf8');
-        const notification = JSON.parse(data);
+        const data = fs.readFileSync(`${__dirname}/sendGridEvents-test.json`, 'utf8');
+        const events = JSON.parse(data);
         yield supertest(app)
-            .post('/gmo/notify')
-            .send(notification)
+            .post('/sendgrid/event/notify')
+            .send(events)
             .expect(HTTPStatus.OK)
             .then((response) => __awaiter(this, void 0, void 0, function* () {
-            assert.equal(response.text, '0');
-            const gmoNotificationAdapter = sskts.adapter.gmoNotification(connection);
-            const notificationDoc = yield gmoNotificationAdapter.gmoNotificationModel.findOne({ order_id: notification.OrderID }).exec();
-            assert.notEqual(notificationDoc, null);
+            assert.equal(response.text, '');
+            // 全て保管されていることを確認
+            const sendGridEventAdapter = sskts.adapter.sendGridEvent(connection);
+            yield Promise.all(events.map((event) => __awaiter(this, void 0, void 0, function* () {
+                const eventDoc = yield sendGridEventAdapter.sendGridEventModel.findOne({ sg_event_id: event.sg_event_id }).exec();
+                assert.notEqual(eventDoc, null);
+            })));
         }));
     }));
 });

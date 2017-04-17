@@ -5,6 +5,7 @@
  */
 import * as sskts from '@motionpicture/sskts-domain';
 import * as assert from 'assert';
+import * as fs from 'fs-extra';
 import * as HTTPStatus from 'http-status';
 import * as mongoose from 'mongoose';
 import * as supertest from 'supertest';
@@ -33,21 +34,19 @@ describe('GMO結果通知', () => {
     });
 
     it('有効なリクエスト', async () => {
-        const orderId = '1234567890';
+        const data = fs.readFileSync(`${__dirname}/gmoNotification-test.json`, 'utf8');
+        const notification = <any>JSON.parse(data);
+
         await supertest(app)
             .post('/gmo/notify')
-            .send({
-                OrderID: orderId,
-                AccessID: 'xxx',
-                Status: 'xxx',
-                JobCd: 'xxx',
-                Amount: 'xxx'
-            })
+            .send(notification)
             .expect(HTTPStatus.OK)
             .then(async (response) => {
                 assert.equal(response.text, '0');
                 const gmoNotificationAdapter = sskts.adapter.gmoNotification(connection);
-                const notificationDoc = await gmoNotificationAdapter.gmoNotificationModel.findOne({ order_id: orderId }).exec();
+                const notificationDoc = await gmoNotificationAdapter.gmoNotificationModel.findOne(
+                    { order_id: notification.OrderID }
+                ).exec();
                 assert.notEqual(notificationDoc, null);
             });
     });

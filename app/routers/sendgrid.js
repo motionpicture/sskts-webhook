@@ -1,14 +1,50 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * SendGridルーター
  *
  * @ignore
  */
-// import * as sskts from '@motionpicture/sskts-domain';
-// import * as GMO from '@motionpicture/gmo-service';
-// import * as createDebug from 'debug';
+const sskts = require("@motionpicture/sskts-domain");
+const createDebug = require("debug");
 const express = require("express");
+const http_status_1 = require("http-status");
+const mongoose = require("mongoose");
 const router = express.Router();
-// const debug = createDebug('sskts-webhook:router:sendgrid');
+const debug = createDebug('sskts-webhook:router:sendgrid');
+router.post('/event/notify', (req, res) => __awaiter(this, void 0, void 0, function* () {
+    const events = req.body;
+    debug('sendgrid events:', req.body);
+    if (!Array.isArray(events)) {
+        res.status(http_status_1.BAD_REQUEST).end();
+        return;
+    }
+    // リクエストボディをDBに保管
+    try {
+        const sendGridEventAdapter = sskts.adapter.sendGridEvent(mongoose.connection);
+        yield Promise.all(events.map((event) => __awaiter(this, void 0, void 0, function* () {
+            if (event.sg_event_id === undefined) {
+                throw new Error('sg_event_id undefined');
+            }
+            yield sendGridEventAdapter.sendGridEventModel.findOneAndUpdate({
+                sg_event_id: event.sg_event_id
+            }, event, {
+                upsert: true
+            }).exec();
+            debug('event updated.', event);
+        })));
+        res.status(http_status_1.OK).end();
+    }
+    catch (error) {
+        res.status(http_status_1.INTERNAL_SERVER_ERROR).end();
+    }
+}));
 exports.default = router;
