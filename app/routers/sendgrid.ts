@@ -9,15 +9,16 @@ import * as express from 'express';
 import { BAD_REQUEST, INTERNAL_SERVER_ERROR, OK } from 'http-status';
 import * as mongoose from 'mongoose';
 
-const router = express.Router();
+const sendgridRouter = express.Router();
 const debug = createDebug('sskts-webhook:router:sendgrid');
 
-router.post('/event/notify', async (req, res) => {
+sendgridRouter.post('/event/notify', async (req, res) => {
     const events = req.body;
     debug('sendgrid events:', req.body);
 
     if (!Array.isArray(events)) {
         res.status(BAD_REQUEST).end();
+
         return;
     }
 
@@ -48,4 +49,4 @@ router.post('/event/notify', async (req, res) => {
     }
 });
 
-export default router;
+export default sendgridRouter;

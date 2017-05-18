@@ -18,9 +18,9 @@ const createDebug = require("debug");
 const express = require("express");
 const http_status_1 = require("http-status");
 const mongoose = require("mongoose");
-const router = express.Router();
+const sendgridRouter = express.Router();
 const debug = createDebug('sskts-webhook:router:sendgrid');
-router.post('/event/notify', (req, res) => __awaiter(this, void 0, void 0, function* () {
+sendgridRouter.post('/event/notify', (req, res) => __awaiter(this, void 0, void 0, function* () {
     const events = req.body;
     debug('sendgrid events:', req.body);
     if (!Array.isArray(events)) {
@@ -47,4 +47,4 @@ router.post('/event/notify', (req, res) => __awaiter(this, void 0, void 0, funct
         res.status(http_status_1.INTERNAL_SERVER_ERROR).end();
     }
 }));
-exports.default = router;
+exports.default = sendgridRouter;

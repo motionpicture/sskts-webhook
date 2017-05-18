@@ -17,7 +17,7 @@ const sskts = require("@motionpicture/sskts-domain");
 const createDebug = require("debug");
 const express = require("express");
 const mongoose = require("mongoose");
-const router = express.Router();
+const gmoRouter = express.Router();
 const debug = createDebug('sskts-webhook:router:gmo');
 /**
  * 受信OK
@@ -27,7 +27,7 @@ const RECV_RES_OK = '0';
  * 受信失敗
  */
 const RECV_RES_NG = '1';
-router.post('/notify', (req, res) => __awaiter(this, void 0, void 0, function* () {
+gmoRouter.post('/notify', (req, res) => __awaiter(this, void 0, void 0, function* () {
     debug('body:', JSON.stringify(req.body));
     const notification = req.body;
     if (notification.OrderID === undefined) {
@@ -63,4 +63,4 @@ router.post('/notify', (req, res) => __awaiter(this, void 0, void 0, function* (
         res.send(RECV_RES_NG);
     }
 }));
-exports.default = router;
+exports.default = gmoRouter;

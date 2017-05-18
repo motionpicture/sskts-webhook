@@ -8,7 +8,7 @@ import * as createDebug from 'debug';
 import * as express from 'express';
 import * as mongoose from 'mongoose';
 
-const router = express.Router();
+const gmoRouter = express.Router();
 const debug = createDebug('sskts-webhook:router:gmo');
 
 /**
@@ -20,13 +20,14 @@ const RECV_RES_OK = '0';
  */
 const RECV_RES_NG = '1';
 
-router.post('/notify', async (req, res) => {
+gmoRouter.post('/notify', async (req, res) => {
     debug('body:', JSON.stringify(req.body));
 
     const notification = req.body;
 
     if (notification.OrderID === undefined) {
         res.send(RECV_RES_OK);
+
         return;
     }
 
@@ -62,4 +63,4 @@ router.post('/notify', async (req, res) => {
     }
 });
 
-export default router;
+export default gmoRouter;

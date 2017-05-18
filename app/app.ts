@@ -32,10 +32,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 mongoose.connect(process.env.MONGOLAB_URI);
 
 // routers
+import clientEventsRouter from './routers/clientEvents';
 import gmoRouter from './routers/gmo';
 import router from './routers/router';
 import sendgridRouter from './routers/sendgrid';
 app.use('/', router);
+app.use('/clientEvents', clientEventsRouter);
 app.use('/gmo', gmoRouter);
 app.use('/sendgrid', sendgridRouter);
 
