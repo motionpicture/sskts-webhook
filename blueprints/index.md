@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: https://sskts-webhook-development.azurewebsites.net/
+HOST: https://sskts-webhook-development.azurewebsites.net
 
 # シネマサンシャインチケットシステム webhook documentation
 
