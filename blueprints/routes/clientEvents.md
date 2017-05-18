@@ -1,6 +1,6 @@
 # Group アプリケーションクライアントイベント
 
-## ClientEvents [/client/events]
+## ClientEvents [/clientEvents]
 
 ### クライアントイベント通知 [POST]
 
@@ -18,7 +18,7 @@
         + location (array, optional, fixed_type) - ユーザー位置情報
             + `35.63588652257869` (number, required) - 緯度
             + `139.65534000898916` (number, required) - 経度
-        + transaction: `` (string, optional) - 取引ID
+        + transaction: `591d689bbd490f1ed4f43077` (string, optional) - 取引ID
 
 + Response 201 (application/json)
     + Attributes
