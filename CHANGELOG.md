@@ -7,6 +7,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 ### Added
 
 ### Changed
+- ソースコードのディレクトリ構造を変更。
+- sskts-domain@23.0.0に対応。
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+- install latest packages.
+
 
 ## v1.1.1 - 2017-05-18
 ### Added

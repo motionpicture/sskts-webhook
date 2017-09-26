@@ -1,7 +1,6 @@
+<img src="https://motionpicture.jp/images/common/logo_01.svg" alt="motionpicture" title="motionpicture" align="right" height="56" width="98"/>
+
 # sskts webhook ウェブアプリケーション
-
-
-# Features
 
 # Getting Started
 
@@ -44,13 +43,23 @@ npmでローカルサーバーを起動。
 コード品質チェックをtslintで行う。
 * [tslint](https://github.com/palantir/tslint)
 * [tslint-microsoft-contrib](https://github.com/Microsoft/tslint-microsoft-contrib)
-`npm run check`でチェック実行。改修の際には、必ずチェックする。
+
+`npm run check`でチェック実行。
 
 
-### test
 
-`npm test`でテストコード実行。テストをクリアしてからデプロイすること。
+### Test
 
+`npm test`でテストコード実行。
+
+
+## パッケージ脆弱性のチェック
+
+* [nsp](https://www.npmjs.com/package/nsp)
+
+
+## ドキュメント
+`npm run doc`でjsdocが作成されます。
 
 
 ## Required environment variables
@@ -78,24 +87,4 @@ set SSKTS_WEBHOOK_BASIC_AUTH_PASS=**********認証パスワード**********
 ```
 
 
-
-
-# JsDoc
-
-`npm run jsdoc`でjsdocを作成できます。./docsに出力されます。
-
-
 # 参考
-
-## LINE Reference
-
-* [LINE BUSSINESS CENTER]https://business.line.me/ja/
-* [LINE@MANAGER]https://admin-official.line.me/
-* [API Reference](https://devdocs.line.me/ja/)
-* [LINE Pay技術サポート](https://pay.line.me/jp/developers/documentation/download/tech?locale=ja_JP)
-* [LINE Pay Home](https://pay.line.me/jp/)
-
-
-## Cognitive Services
-
-* [Web Language Model API](https://westus.dev.cognitive.microsoft.com/docs/services/55de9ca4e597ed1fd4e2f104/operations/55de9ca4e597ed19b0de8a51)

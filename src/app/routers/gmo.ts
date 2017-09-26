@@ -1,8 +1,8 @@
 /**
  * GMOルーター
- *
- * @ignore
+ * @namespace routers.gmo
  */
+
 import * as sskts from '@motionpicture/sskts-domain';
 import * as createDebug from 'debug';
 import * as express from 'express';
@@ -33,8 +33,8 @@ gmoRouter.post('/notify', async (req, res) => {
 
     // リクエストボディをDBに保管
     try {
-        const gmoNotificationAdapter = sskts.adapter.gmoNotification(mongoose.connection);
-        await gmoNotificationAdapter.gmoNotificationModel.create(
+        const gmoNotificationRepo = new sskts.repository.GMONotification(mongoose.connection);
+        await gmoNotificationRepo.gmoNotificationModel.create(
             {
                 shop_id: notification.ShopID,
                 access_id: notification.AccessID,

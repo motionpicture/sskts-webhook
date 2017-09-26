@@ -1,8 +1,8 @@
 /**
  * SendGridルーター
- *
- * @ignore
+ * @namespace routers.sendgrid
  */
+
 import * as sskts from '@motionpicture/sskts-domain';
 import * as createDebug from 'debug';
 import * as express from 'express';
@@ -24,14 +24,14 @@ sendgridRouter.post('/event/notify', async (req, res) => {
 
     // リクエストボディをDBに保管
     try {
-        const sendGridEventAdapter = sskts.adapter.sendGridEvent(mongoose.connection);
+        const sendGridEventRepo = new sskts.repository.SendGridEvent(mongoose.connection);
 
         await Promise.all(events.map(async (event) => {
             if (event.sg_event_id === undefined) {
                 throw new Error('sg_event_id undefined');
             }
 
-            await sendGridEventAdapter.sendGridEventModel.findOneAndUpdate(
+            await sendGridEventRepo.sendGridEventModel.findOneAndUpdate(
                 {
                     sg_event_id: event.sg_event_id
                 },
