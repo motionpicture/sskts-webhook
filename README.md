@@ -64,19 +64,19 @@ npmでローカルサーバーを起動。
 
 ## Required environment variables
 ```shell
-    set NODE_ENV=**********
-    set MONGOLAB_URI=**********
-    set SENDGRID_API_KEY=**********
-    set GMO_ENDPOINT=**********
-    set COA_ENDPOINT=**********
-    set COA_REFRESH_TOKEN=**********
+set NPM_TOEN=**********
+set NODE_ENV=**********
+set MONGOLAB_URI=**********
+set SENDGRID_API_KEY=**********
+set GMO_ENDPOINT=**********
+set COA_ENDPOINT=**********
+set COA_REFRESH_TOKEN=**********
 ```
 
 only on Aure WebApps
 
 ```shell
-    set WEBSITE_NODE_DEFAULT_VERSION=**********
-    set WEBSITE_TIME_ZONE=Tokyo Standard Time
+set WEBSITE_NODE_DEFAULT_VERSION=**********
 ```
 
 ベーシック認証をかけたい場合
