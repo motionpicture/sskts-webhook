@@ -63,27 +63,19 @@ npmでローカルサーバーを起動。
 
 
 ## Required environment variables
-```shell
-set NPM_TOEN=**********
-set NODE_ENV=**********
-set MONGOLAB_URI=**********
-set SENDGRID_API_KEY=**********
-set GMO_ENDPOINT=**********
-set COA_ENDPOINT=**********
-set COA_REFRESH_TOKEN=**********
+``` shell
+set NPM_TOKEN=**********npm認証トークン**********
+set NODE_ENV=**********環境名**********
+set MONGOLAB_URI=**********MongoDB接続URI**********
+set GMO_ENDPOINT=**********GMOサービスエンドポイント**********
+set COA_ENDPOINT=**********COAサービスエンドポイント**********
+set COA_REFRESH_TOKEN=**********COAサービスリフレッシュトークン**********
 ```
 
 only on Aure WebApps
 
-```shell
+``` shell
 set WEBSITE_NODE_DEFAULT_VERSION=**********
-```
-
-ベーシック認証をかけたい場合
-
-```shell
-set SSKTS_WEBHOOK_BASIC_AUTH_NAME=**********認証ユーザー名**********
-set SSKTS_WEBHOOK_BASIC_AUTH_PASS=**********認証パスワード**********
 ```
 
 

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const http_status_1 = require("http-status");
 exports.default = (err, __, res, next) => {
-    console.error('sskts-api:iddleware:errorHandler', err);
+    console.error('sskts-webhook:middleware:errorHandler', err);
     if (res.headersSent) {
         next(err);
         return;

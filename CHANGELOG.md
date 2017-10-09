@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 ### Deprecated
 
 ### Removed
+- ベーシック認証ミドルウェアは不要なので削除。
 
 ### Fixed
 
