@@ -1,14 +1,14 @@
+// tslint:disable-next-line:no-suspicious-comment
 /**
  * エラーハンドラーミドルウェア
- *
- * todo errの内容、エラーオブジェクトタイプによって、本来はステータスコードを細かくコントロールするべき
+ * TODO errの内容、エラーオブジェクトタイプによって、本来はステータスコードを細かくコントロールするべき
  * 現時点では、雑にコントロールしてある
  */
 import { NextFunction, Request, Response } from 'express';
 import { BAD_REQUEST, INTERNAL_SERVER_ERROR } from 'http-status';
 
 export default (err: any, __: Request, res: Response, next: NextFunction) => {
-    console.error('sskts-api:iddleware:errorHandler', err);
+    console.error('sskts-webhook:middleware:errorHandler', err);
 
     if (res.headersSent) {
         next(err);
