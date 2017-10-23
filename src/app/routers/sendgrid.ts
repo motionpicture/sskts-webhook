@@ -7,7 +7,6 @@ import * as sskts from '@motionpicture/sskts-domain';
 import * as createDebug from 'debug';
 import * as express from 'express';
 import { BAD_REQUEST, INTERNAL_SERVER_ERROR, OK } from 'http-status';
-import * as mongoose from 'mongoose';
 
 const sendgridRouter = express.Router();
 const debug = createDebug('sskts-webhook:router:sendgrid');
@@ -24,7 +23,7 @@ sendgridRouter.post('/event/notify', async (req, res) => {
 
     // リクエストボディをDBに保管
     try {
-        const sendGridEventRepo = new sskts.repository.SendGridEvent(mongoose.connection);
+        const sendGridEventRepo = new sskts.repository.SendGridEvent(sskts.mongoose.connection);
 
         await Promise.all(events.map(async (event) => {
             if (event.sg_event_id === undefined) {

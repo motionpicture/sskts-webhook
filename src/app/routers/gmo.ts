@@ -6,7 +6,6 @@
 import * as sskts from '@motionpicture/sskts-domain';
 import * as createDebug from 'debug';
 import * as express from 'express';
-import * as mongoose from 'mongoose';
 
 const gmoRouter = express.Router();
 const debug = createDebug('sskts-webhook:router:gmo');
@@ -33,7 +32,7 @@ gmoRouter.post('/notify', async (req, res) => {
 
     // リクエストボディをDBに保管
     try {
-        const gmoNotificationRepo = new sskts.repository.GMONotification(mongoose.connection);
+        const gmoNotificationRepo = new sskts.repository.GMONotification(sskts.mongoose.connection);
         await gmoNotificationRepo.gmoNotificationModel.create(
             {
                 shop_id: notification.ShopID,

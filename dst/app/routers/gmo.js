@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sskts = require("@motionpicture/sskts-domain");
 const createDebug = require("debug");
 const express = require("express");
-const mongoose = require("mongoose");
 const gmoRouter = express.Router();
 const debug = createDebug('sskts-webhook:router:gmo');
 /**
@@ -35,7 +34,7 @@ gmoRouter.post('/notify', (req, res) => __awaiter(this, void 0, void 0, function
     }
     // リクエストボディをDBに保管
     try {
-        const gmoNotificationRepo = new sskts.repository.GMONotification(mongoose.connection);
+        const gmoNotificationRepo = new sskts.repository.GMONotification(sskts.mongoose.connection);
         yield gmoNotificationRepo.gmoNotificationModel.create({
             shop_id: notification.ShopID,
             access_id: notification.AccessID,

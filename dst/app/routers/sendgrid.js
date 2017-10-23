@@ -16,7 +16,6 @@ const sskts = require("@motionpicture/sskts-domain");
 const createDebug = require("debug");
 const express = require("express");
 const http_status_1 = require("http-status");
-const mongoose = require("mongoose");
 const sendgridRouter = express.Router();
 const debug = createDebug('sskts-webhook:router:sendgrid');
 sendgridRouter.post('/event/notify', (req, res) => __awaiter(this, void 0, void 0, function* () {
@@ -28,7 +27,7 @@ sendgridRouter.post('/event/notify', (req, res) => __awaiter(this, void 0, void 
     }
     // リクエストボディをDBに保管
     try {
-        const sendGridEventRepo = new sskts.repository.SendGridEvent(mongoose.connection);
+        const sendGridEventRepo = new sskts.repository.SendGridEvent(sskts.mongoose.connection);
         yield Promise.all(events.map((event) => __awaiter(this, void 0, void 0, function* () {
             if (event.sg_event_id === undefined) {
                 throw new Error('sg_event_id undefined');
