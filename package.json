@@ -9,20 +9,20 @@
     }
   ],
   "dependencies": {
-    "@motionpicture/sskts-domain": "^23.0.0-alpha.25",
+    "@motionpicture/sskts-domain": "^23.0.1",
     "body-parser": "^1.17.1",
     "cors": "^2.8.4",
-    "debug": "^2.6.3",
+    "debug": "^3.1.0",
     "express": "^4.16.2",
     "helmet": "^3.9.0",
     "http-status": "^1.0.1"
   },
   "description": "sskts-webhook",
   "devDependencies": {
-    "@types/body-parser": "^1.16.3",
+    "@types/body-parser": "^1.16.6",
     "@types/cors": "^2.8.1",
     "@types/debug": "0.0.29",
-    "@types/express": "^4.0.35",
+    "@types/express": "^4.0.38",
     "@types/fs-extra": "^2.0.0",
     "@types/helmet": "0.0.36",
     "@types/http-status": "^0.2.29",
@@ -36,7 +36,7 @@
     "nsp": "^2.8.1",
     "nyc": "^11.3.0",
     "rimraf": "^2.6.1",
-    "snyk": "^1.45.0",
+    "snyk": "^1.46.0",
     "supertest": "^3.0.0",
     "ts-node": "^3.3.0",
     "tslint": "^5.8.0",

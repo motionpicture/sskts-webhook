@@ -35,23 +35,25 @@ gmoRouter.post('/notify', async (req, res) => {
         const gmoNotificationRepo = new sskts.repository.GMONotification(sskts.mongoose.connection);
         await gmoNotificationRepo.gmoNotificationModel.create(
             {
-                shop_id: notification.ShopID,
-                access_id: notification.AccessID,
-                order_id: notification.OrderID,
+                shopId: notification.ShopID,
+                accessId: notification.AccessID,
+                orderId: notification.OrderID,
                 status: notification.Status,
-                job_cd: notification.JobCd,
-                amount: notification.Amount,
-                tax: notification.Tax,
+                jobCd: notification.JobCd,
+                // tslint:disable-next-line:no-magic-numbers
+                amount: parseInt(notification.Amount, 10),
+                // tslint:disable-next-line:no-magic-numbers
+                tax: parseInt(notification.Tax, 10),
                 currency: notification.Currency,
                 forward: notification.Forward,
                 method: notification.Method,
-                pay_times: notification.PayTimes,
-                tran_id: notification.TranID,
+                payTimes: notification.PayTimes,
+                tranId: notification.TranID,
                 approve: notification.Approve,
-                tran_date: notification.TranDate,
-                err_code: notification.ErrCode,
-                err_info: notification.ErrInfo,
-                pay_type: notification.PayType
+                tranDate: notification.TranDate,
+                errCode: notification.ErrCode,
+                errInfo: notification.ErrInfo,
+                payType: notification.PayType
             }
         );
 

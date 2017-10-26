@@ -39,9 +39,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 sskts.mongoose.connect(process.env.MONGOLAB_URI, mongooseConnectionOptions_1.default);
 // routers
 const gmo_1 = require("./routers/gmo");
-const router_1 = require("./routers/router");
 const sendgrid_1 = require("./routers/sendgrid");
-app.use('/', router_1.default);
 app.use('/gmo', gmo_1.default);
 app.use('/sendgrid', sendgrid_1.default);
 // 404

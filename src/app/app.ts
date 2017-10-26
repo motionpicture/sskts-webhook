@@ -48,9 +48,7 @@ sskts.mongoose.connect(<string>process.env.MONGOLAB_URI, mongooseConnectionOptio
 
 // routers
 import gmoRouter from './routers/gmo';
-import router from './routers/router';
 import sendgridRouter from './routers/sendgrid';
-app.use('/', router);
 app.use('/gmo', gmoRouter);
 app.use('/sendgrid', sendgridRouter);
 
