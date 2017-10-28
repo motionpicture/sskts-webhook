@@ -22,9 +22,7 @@ const RECV_RES_NG = '1';
 gmoRouter.post('/notify', async (req, res) => {
     debug('body:', JSON.stringify(req.body));
 
-    const notification = req.body;
-
-    if (notification.OrderID === undefined) {
+    if (req.body.OrderID === undefined) {
         res.send(RECV_RES_OK);
 
         return;
@@ -32,31 +30,9 @@ gmoRouter.post('/notify', async (req, res) => {
 
     // リクエストボディをDBに保管
     try {
+        const notification = sskts.GMO.factory.resultNotification.creditCard.createFromRequestBody(req.body);
         const gmoNotificationRepo = new sskts.repository.GMONotification(sskts.mongoose.connection);
-        await gmoNotificationRepo.gmoNotificationModel.create(
-            {
-                shopId: notification.ShopID,
-                accessId: notification.AccessID,
-                orderId: notification.OrderID,
-                status: notification.Status,
-                jobCd: notification.JobCd,
-                // tslint:disable-next-line:no-magic-numbers
-                amount: parseInt(notification.Amount, 10),
-                // tslint:disable-next-line:no-magic-numbers
-                tax: parseInt(notification.Tax, 10),
-                currency: notification.Currency,
-                forward: notification.Forward,
-                method: notification.Method,
-                payTimes: notification.PayTimes,
-                tranId: notification.TranID,
-                approve: notification.Approve,
-                tranDate: notification.TranDate,
-                errCode: notification.ErrCode,
-                errInfo: notification.ErrInfo,
-                payType: notification.PayType
-            }
-        );
-
+        await gmoNotificationRepo.save(notification);
         debug('notification created.', notification);
         res.send(RECV_RES_OK);
     } catch (error) {

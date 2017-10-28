@@ -27,35 +27,15 @@ const RECV_RES_OK = '0';
 const RECV_RES_NG = '1';
 gmoRouter.post('/notify', (req, res) => __awaiter(this, void 0, void 0, function* () {
     debug('body:', JSON.stringify(req.body));
-    const notification = req.body;
-    if (notification.OrderID === undefined) {
+    if (req.body.OrderID === undefined) {
         res.send(RECV_RES_OK);
         return;
     }
     // リクエストボディをDBに保管
     try {
+        const notification = sskts.GMO.factory.resultNotification.creditCard.createFromRequestBody(req.body);
         const gmoNotificationRepo = new sskts.repository.GMONotification(sskts.mongoose.connection);
-        yield gmoNotificationRepo.gmoNotificationModel.create({
-            shopId: notification.ShopID,
-            accessId: notification.AccessID,
-            orderId: notification.OrderID,
-            status: notification.Status,
-            jobCd: notification.JobCd,
-            // tslint:disable-next-line:no-magic-numbers
-            amount: parseInt(notification.Amount, 10),
-            // tslint:disable-next-line:no-magic-numbers
-            tax: parseInt(notification.Tax, 10),
-            currency: notification.Currency,
-            forward: notification.Forward,
-            method: notification.Method,
-            payTimes: notification.PayTimes,
-            tranId: notification.TranID,
-            approve: notification.Approve,
-            tranDate: notification.TranDate,
-            errCode: notification.ErrCode,
-            errInfo: notification.ErrInfo,
-            payType: notification.PayType
-        });
+        yield gmoNotificationRepo.save(notification);
         debug('notification created.', notification);
         res.send(RECV_RES_OK);
     }

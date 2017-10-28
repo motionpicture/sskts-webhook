@@ -8,7 +8,7 @@ import * as fs from 'fs-extra';
 import * as HTTPStatus from 'http-status';
 import * as supertest from 'supertest';
 
-import * as app from './app/app';
+import * as app from '../../app/app';
 
 describe('SendGridイベント通知', () => {
     it('不正なリクエスト', async () => {
