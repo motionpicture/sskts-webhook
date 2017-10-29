@@ -8,10 +8,12 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const express = require("express");
 const helmet = require("helmet");
+const basicAuth_1 = require("./middlewares/basicAuth");
 const errorHandler_1 = require("./middlewares/errorHandler");
 const notFoundHandler_1 = require("./middlewares/notFoundHandler");
 const mongooseConnectionOptions_1 = require("../mongooseConnectionOptions");
 const app = express();
+app.use(basicAuth_1.default); // ベーシック認証
 app.use(cors()); // enable All CORS Requests
 app.use(helmet());
 app.use(helmet.contentSecurityPolicy({

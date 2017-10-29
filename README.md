@@ -78,5 +78,12 @@ only on Aure WebApps
 set WEBSITE_NODE_DEFAULT_VERSION=**********
 ```
 
+ベーシック認証をかけたい場合
+
+```shell
+set SSKTS_BASIC_AUTH_NAME=**********認証ユーザー名**********
+set SSKTS_BASIC_AUTH_PASS=**********認証パスワード**********
+```
+
 
 # 参考

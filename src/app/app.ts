@@ -9,6 +9,7 @@ import * as cors from 'cors';
 import * as express from 'express';
 import * as helmet from 'helmet';
 
+import basicAuth from './middlewares/basicAuth';
 import errorHandler from './middlewares/errorHandler';
 import notFoundHandler from './middlewares/notFoundHandler';
 
@@ -16,6 +17,7 @@ import mongooseConnectionOptions from '../mongooseConnectionOptions';
 
 const app = express();
 
+app.use(basicAuth); // ベーシック認証
 app.use(cors()); // enable All CORS Requests
 app.use(helmet());
 app.use(helmet.contentSecurityPolicy({

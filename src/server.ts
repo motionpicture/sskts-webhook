@@ -92,5 +92,5 @@ function onListening() {
     debug(`Listening on ${bind}`);
 
     const diff = process.hrtime(startTime);
-    debug(`api server listening took ${diff[0]} seconds and ${diff[1]} nanoseconds.`);
+    debug(`sskts-webhook server listening took ${diff[0]} seconds and ${diff[1]} nanoseconds.`);
 }
