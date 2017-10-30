@@ -2,43 +2,63 @@
 
 # sskts webhook ウェブアプリケーション
 
-# Getting Started
+## Getting Started
 
-## インフラ
+### インフラ
 基本的にnode.jsのウェブアプリケーション。
-ウェブサーバーとしては、AzureのWebAppsあるいはGCPのAppEngineを想定。
-両方で動くように開発していくことが望ましい。
+ウェブサーバーとしては、AzureのWebApps or GCPのAppEngine or AWSのelastic beanstalkを想定。
+全てで動くように開発していくことが望ましい。
 
-## 言語
-実態としては、linuxあるいはwindows上でのnode.js。
-プログラミング言語としては、alternative javascriptのひとつであるTypeScript。
+### 言語
+実態としては、linuxあるいはwindows上でのnode.js。プログラミング言語としては、TypeScript。
 
-* TypeScript(https://www.typescriptlang.org/)
+* [TypeScript](https://www.typescriptlang.org/)
 
-## 開発方法
+### 開発方法
 npmでパッケージをインストール。
-`npm install`
 
-* npm(https://www.npmjs.com/)
+```shell
+npm install
+```
+* [npm](https://www.npmjs.com/)
 
 typescriptをjavascriptにコンパイル。
-`npm run build`
 
-
-監視させる場合はこちら。
-`npm run build -- -w`
-
+```shell
+npm run build -- -w
+```
 
 npmでローカルサーバーを起動。
-`npm start`
 
-(http://localhost:8080)にアクセスすると、ローカルでウェブアプリを確認できます。
+```shell
+npm start
+```
 
 以下指定するとデバッグモード。
-`set DEBUG=sskts-webhook:*`
+
+```shell
+set DEBUG=sskts-webhook:*
+```
 
 
-### tslint
+### Environment variables
+
+| Name                                      | Required              | Purpose                        | Value        |
+|-------------------------------------------|-----------------------|--------------------------------|--------------|
+| `DEBUG`                                   | false                 | Debug                          | sskts-webhook:* |
+| `NPM_TOKEN`                               | true                  | NPM auth token                 ||
+| `NODE_ENV`                                | true                  | environment name               ||
+| `MONGOLAB_URI`                            | true                  | MongoDB connection URI         ||
+| `SENDGRID_API_KEY`                        | true                  | SendGrid API Key               ||
+| `GMO_ENDPOINT`                            | true                  | GMO API endpoint               ||
+| `COA_ENDPOINT`                            | true                  | COA API endpoint               ||
+| `COA_REFRESH_TOKEN`                       | true                  | COA API refresh token          ||
+| `WEBSITE_NODE_DEFAULT_VERSION`            | only on Azure WebApps | Node.js version                ||
+| `SSKTS_BASIC_AUTH_NAME`                   | false                 | Basic authentication user name ||
+| `SSKTS_BASIC_AUTH_PASS`                   | false                 | Basic authentication user pass ||
+
+
+## tslint
 
 コード品質チェックをtslintで行う。
 * [tslint](https://github.com/palantir/tslint)
@@ -47,43 +67,23 @@ npmでローカルサーバーを起動。
 `npm run check`でチェック実行。
 
 
-
-### Test
-
-`npm test`でテストコード実行。
-
-
 ## パッケージ脆弱性のチェック
 
 * [nsp](https://www.npmjs.com/package/nsp)
+
+
+## clean
+`npm run clean`で不要なソース削除。
+
+
+## テスト
+`npm test`でテスト実行。
 
 
 ## ドキュメント
 `npm run doc`でjsdocが作成されます。
 
 
-## Required environment variables
-``` shell
-set NPM_TOKEN=**********npm認証トークン**********
-set NODE_ENV=**********環境名**********
-set MONGOLAB_URI=**********MongoDB接続URI**********
-set GMO_ENDPOINT=**********GMOサービスエンドポイント**********
-set COA_ENDPOINT=**********COAサービスエンドポイント**********
-set COA_REFRESH_TOKEN=**********COAサービスリフレッシュトークン**********
-```
-
-only on Aure WebApps
-
-``` shell
-set WEBSITE_NODE_DEFAULT_VERSION=**********
-```
-
-ベーシック認証をかけたい場合
-
-```shell
-set SSKTS_BASIC_AUTH_NAME=**********認証ユーザー名**********
-set SSKTS_BASIC_AUTH_PASS=**********認証パスワード**********
-```
-
-
-# 参考
+## 参考
+* [GMO Payment Gateway 結果通知プログラム](https://faq.gmo-pg.com/service/detail.aspx?id=1050&a=102&isCrawler=1)
+* [SendGrid Event Webhook](https://sendgrid.com/docs/API_Reference/Webhooks/event.html)
