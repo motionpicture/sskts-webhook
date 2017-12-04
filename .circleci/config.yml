@@ -8,7 +8,9 @@ jobs:
       - checkout
       - run:
           name: node version
-          command: node -v
+          command: |
+            echo $CIRCLE_BRANCH
+            node -v
       - run:
           name: npm version
           command: npm -v
@@ -64,11 +66,35 @@ jobs:
           command: |
             npm run build
             npm run doc
+  deploy2development:
+    docker:
+      - image: circleci/node:8.4
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: deploy to azure webapps development
+          command: |
+            git remote add development-staging ${DEPLOY_TARGET_REPOSITORY_DEVELOPMENT}
+            git push development-staging $CIRCLE_BRANCH:master -f -v
+  deploy:
+    docker:
+      - image: circleci/node:8.4
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: deploy to azure webapps production
+          command: |
+            git remote add production-staging ${DEPLOY_TARGET_REPOSITORY_PRODUCTION}
+            git push production-staging $CIRCLE_BRANCH:master -f -v
 # Used for orchestrating all jobs.
 workflows:
   version: 2
 
-  build-test-doc:
+  build-test-doc-deploy:
     jobs:
       - build
       - test:
@@ -77,3 +103,15 @@ workflows:
       - doc:
           requires:
             - test
+      - deploy2development:
+          requires:
+            - doc
+          filters:
+            branches:
+              only: develop
+      - deploy:
+          requires:
+            - doc
+          filters:
+            branches:
+              only: master
