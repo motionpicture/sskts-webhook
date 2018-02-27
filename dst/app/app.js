@@ -6,12 +6,14 @@
 const sskts = require("@motionpicture/sskts-domain");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const createDebug = require("debug");
 const express = require("express");
 const helmet = require("helmet");
 const basicAuth_1 = require("./middlewares/basicAuth");
 const errorHandler_1 = require("./middlewares/errorHandler");
 const notFoundHandler_1 = require("./middlewares/notFoundHandler");
 const mongooseConnectionOptions_1 = require("../mongooseConnectionOptions");
+const debug = createDebug('sskts-webhook:app');
 const app = express();
 app.use(basicAuth_1.default); // ベーシック認証
 app.use(cors()); // enable All CORS Requests
@@ -38,7 +40,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // 静的ファイル
 // app.use(express.static(__dirname + '/../public'));
 // mongoose
-sskts.mongoose.connect(process.env.MONGOLAB_URI, mongooseConnectionOptions_1.default);
+sskts.mongoose.connect(process.env.MONGOLAB_URI, mongooseConnectionOptions_1.default).then(debug).catch(console.error);
 // routers
 const gmo_1 = require("./routers/gmo");
 const sendgrid_1 = require("./routers/sendgrid");

@@ -6,6 +6,7 @@
 import * as sskts from '@motionpicture/sskts-domain';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
+import * as createDebug from 'debug';
 import * as express from 'express';
 import * as helmet from 'helmet';
 
@@ -14,6 +15,8 @@ import errorHandler from './middlewares/errorHandler';
 import notFoundHandler from './middlewares/notFoundHandler';
 
 import mongooseConnectionOptions from '../mongooseConnectionOptions';
+
+const debug = createDebug('sskts-webhook:app');
 
 const app = express();
 
@@ -46,7 +49,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(express.static(__dirname + '/../public'));
 
 // mongoose
-sskts.mongoose.connect(<string>process.env.MONGOLAB_URI, mongooseConnectionOptions);
+sskts.mongoose.connect(<string>process.env.MONGOLAB_URI, mongooseConnectionOptions).then(debug).catch(console.error);
 
 // routers
 import gmoRouter from './routers/gmo';
