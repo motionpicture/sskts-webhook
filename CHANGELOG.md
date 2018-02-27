@@ -7,7 +7,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 ### Added
 
 ### Changed
-- install [@motionpicture/sskts-domain@24.0.0-alpha.27](https://www.npmjs.com/package/@motionpicture/sskts-domain)
 
 ### Deprecated
 
@@ -17,6 +16,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+
+## v2.0.2 - 2018-02-27
+### Changed
+- install [@motionpicture/sskts-domain@24.0.0-alpha.27](https://www.npmjs.com/package/@motionpicture/sskts-domain)
 
 ## v2.0.1 - 2017-12-04
 ### Changed
