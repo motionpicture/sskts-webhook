@@ -1,6 +1,5 @@
 /**
  * expressアプリケーション
- * @module
  */
 import * as middlewares from '@motionpicture/express-middleware';
 import * as sskts from '@motionpicture/sskts-domain';
@@ -51,7 +50,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(express.static(__dirname + '/../public'));
 
 // mongoose
-sskts.mongoose.connect(<string>process.env.MONGOLAB_URI, mongooseConnectionOptions).then(debug).catch(console.error);
+sskts.mongoose.connect(<string>process.env.MONGOLAB_URI, mongooseConnectionOptions)
+    .then(() => { debug('MongoDB connected!'); })
+    .catch(console.error);
 
 // routers
 import gmoRouter from './routes/gmo';

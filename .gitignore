@@ -3,7 +3,6 @@ iisnode/
 npm-debug.log*
 .vscode/
 .env*
-doc/
 app.yaml*
 **/*.log
 coverage/

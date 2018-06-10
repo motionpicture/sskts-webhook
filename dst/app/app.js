@@ -1,7 +1,6 @@
 "use strict";
 /**
  * expressアプリケーション
- * @module
  */
 const middlewares = require("@motionpicture/express-middleware");
 const sskts = require("@motionpicture/sskts-domain");
@@ -43,7 +42,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // 静的ファイル
 // app.use(express.static(__dirname + '/../public'));
 // mongoose
-sskts.mongoose.connect(process.env.MONGOLAB_URI, mongooseConnectionOptions_1.default).then(debug).catch(console.error);
+sskts.mongoose.connect(process.env.MONGOLAB_URI, mongooseConnectionOptions_1.default)
+    .then(() => { debug('MongoDB connected!'); })
+    .catch(console.error);
 // routers
 const gmo_1 = require("./routes/gmo");
 const sendgrid_1 = require("./routes/sendgrid");
