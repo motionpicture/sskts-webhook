@@ -68,7 +68,7 @@ jobs:
             npm run doc
   deploy2development:
     docker:
-      - image: circleci/node:8.4
+      - image: circleci/node:latest
     steps:
       - checkout
       - restore_cache:
@@ -80,7 +80,7 @@ jobs:
             git push development-staging $CIRCLE_BRANCH:master -f -v
   deploy:
     docker:
-      - image: circleci/node:8.4
+      - image: circleci/node:latest
     steps:
       - checkout
       - restore_cache:
@@ -100,18 +100,18 @@ workflows:
       - test:
           requires:
             - build
-      - doc:
-          requires:
-            - test
+      # - doc:
+      #     requires:
+      #       - test
       - deploy2development:
           requires:
-            - doc
+            - test
           filters:
             branches:
               only: develop
       - deploy:
           requires:
-            - doc
+            - test
           filters:
             branches:
               only: master
