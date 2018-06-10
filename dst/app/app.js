@@ -1,21 +1,23 @@
 "use strict";
 /**
  * expressアプリケーション
- * @module
  */
+const middlewares = require("@motionpicture/express-middleware");
 const sskts = require("@motionpicture/sskts-domain");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const createDebug = require("debug");
 const express = require("express");
 const helmet = require("helmet");
-const basicAuth_1 = require("./middlewares/basicAuth");
 const errorHandler_1 = require("./middlewares/errorHandler");
 const notFoundHandler_1 = require("./middlewares/notFoundHandler");
 const mongooseConnectionOptions_1 = require("../mongooseConnectionOptions");
 const debug = createDebug('sskts-webhook:app');
 const app = express();
-app.use(basicAuth_1.default); // ベーシック認証
+app.use(middlewares.basicAuth({
+    name: process.env.BASIC_AUTH_NAME,
+    pass: process.env.BASIC_AUTH_PASS
+}));
 app.use(cors()); // enable All CORS Requests
 app.use(helmet());
 app.use(helmet.contentSecurityPolicy({
@@ -40,10 +42,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // 静的ファイル
 // app.use(express.static(__dirname + '/../public'));
 // mongoose
-sskts.mongoose.connect(process.env.MONGOLAB_URI, mongooseConnectionOptions_1.default).then(debug).catch(console.error);
+sskts.mongoose.connect(process.env.MONGOLAB_URI, mongooseConnectionOptions_1.default)
+    .then(() => { debug('MongoDB connected!'); })
+    .catch(console.error);
 // routers
-const gmo_1 = require("./routers/gmo");
-const sendgrid_1 = require("./routers/sendgrid");
+const gmo_1 = require("./routes/gmo");
+const sendgrid_1 = require("./routes/sendgrid");
 app.use('/gmo', gmo_1.default);
 app.use('/sendgrid', sendgrid_1.default);
 // 404

@@ -1,9 +1,11 @@
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## Unreleased
+
 ### Added
 
 ### Changed
@@ -16,6 +18,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## v2.0.3 - 2018-06-10
+
+### Changed
+
+- install sskts-domain@25.x.x
 
 ## v2.0.2 - 2018-02-27
 ### Changed

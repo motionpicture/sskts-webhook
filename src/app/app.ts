@@ -1,8 +1,7 @@
 /**
  * expressアプリケーション
- * @module
  */
-
+import * as middlewares from '@motionpicture/express-middleware';
 import * as sskts from '@motionpicture/sskts-domain';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
@@ -10,7 +9,6 @@ import * as createDebug from 'debug';
 import * as express from 'express';
 import * as helmet from 'helmet';
 
-import basicAuth from './middlewares/basicAuth';
 import errorHandler from './middlewares/errorHandler';
 import notFoundHandler from './middlewares/notFoundHandler';
 
@@ -20,7 +18,10 @@ const debug = createDebug('sskts-webhook:app');
 
 const app = express();
 
-app.use(basicAuth); // ベーシック認証
+app.use(middlewares.basicAuth({ // ベーシック認証
+    name: process.env.BASIC_AUTH_NAME,
+    pass: process.env.BASIC_AUTH_PASS
+}));
 app.use(cors()); // enable All CORS Requests
 app.use(helmet());
 app.use(helmet.contentSecurityPolicy({
@@ -49,11 +50,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(express.static(__dirname + '/../public'));
 
 // mongoose
-sskts.mongoose.connect(<string>process.env.MONGOLAB_URI, mongooseConnectionOptions).then(debug).catch(console.error);
+sskts.mongoose.connect(<string>process.env.MONGOLAB_URI, mongooseConnectionOptions)
+    .then(() => { debug('MongoDB connected!'); })
+    .catch(console.error);
 
 // routers
-import gmoRouter from './routers/gmo';
-import sendgridRouter from './routers/sendgrid';
+import gmoRouter from './routes/gmo';
+import sendgridRouter from './routes/sendgrid';
 app.use('/gmo', gmoRouter);
 app.use('/sendgrid', sendgridRouter);
 
