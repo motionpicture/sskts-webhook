@@ -16,7 +16,8 @@
     "debug": "^3.1.0",
     "express": "^4.16.3",
     "helmet": "^3.12.1",
-    "http-status": "^1.1.2"
+    "http-status": "^1.1.2",
+    "snyk": "^1.114.0"
   },
   "description": "sskts-webhook",
   "devDependencies": {
@@ -42,7 +43,6 @@
     "nyc": "^12.0.2",
     "rimraf": "^2.6.1",
     "sinon": "^4.5.0",
-    "snyk": "^1.82.1",
     "supertest": "^3.1.0",
     "ts-node": "^6.1.0",
     "tslint": "^5.10.0",
@@ -73,7 +73,10 @@
     "tslint": "tslint --project tsconfig.json -c tslint.json --exclude \"**/*.spec.ts\" \"src/**/*.ts\"",
     "preversion": "npm run clean && npm run build && npm test && npm run doc",
     "version": "git add -A",
-    "postversion": "git push origin --tags"
+    "postversion": "git push origin --tags",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
-  "version": "2.0.3"
+  "version": "2.0.3",
+  "snyk": true
 }
