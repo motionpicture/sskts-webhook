@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Changed
 
+- install @motionpicture/sskts-domain@26.3.0
+
 ### Deprecated
 
 ### Removed

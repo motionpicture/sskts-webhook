@@ -52,6 +52,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // mongoose
 sskts.mongoose.connect(<string>process.env.MONGOLAB_URI, mongooseConnectionOptions)
     .then(() => { debug('MongoDB connected!'); })
+    // tslint:disable-next-line:no-console
     .catch(console.error);
 
 // routers
